@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class VehicleManager {
@@ -9,6 +10,8 @@ public class VehicleManager {
 
     int[] horsePowersCars = {125, 365, 425};
     int[] seatsCars = {2, 4, 5};
+
+    boolean validInput = false;
 
 
     Scanner scnr = new Scanner(System.in);
@@ -34,15 +37,24 @@ public class VehicleManager {
         }
         // list the cars with number and ask which one to start (1 - 3)
         System.out.print("Select which car you'd like to start (1 - 3): ");
+        while (!validInput) {
+            try {
 
-        int carChoice = scnr.nextInt();
+                int carChoice = scnr.nextInt();
 
-        // when # is picked, then the start method for that object is called (0-2)
-        if (carChoice >= 1 && carChoice <= 3) {
-            cars[carChoice - 1].start();
-        } else {
-            System.out.println("Invalid choice. Please select a number between a number between 1 and 3");
-        }
+                // when # is picked, then the start method for that object is called (0-2)
+                if (carChoice >= 1 && carChoice <= 3) {
+                    cars[carChoice - 1].start();
+                    validInput = true;
+                    break;
+                } else {
+                    System.out.print("Invalid choice. Please select a number between a number between 1 and 3: ");
+                }
+            } catch (InputMismatchException e) {
+                System.out.print("Invalid input. Please select a number between a number between 1 and 3: ");
+                scnr.next();  // Clear the invalid input from the scanner buffer
+            }
+         } validInput = false;
 
         // same above; Start for Motorcycle
         for (int i = 0; i < motorcycles.length; i++) {
@@ -50,36 +62,64 @@ public class VehicleManager {
         }
 
         System.out.print("Select which motorcycle you'd like to start (1 - 3): ");
-        int userChoiceMotor = scnr.nextInt();
+        while (!validInput) {
+            try {
+                int userChoiceMotor = scnr.nextInt();
 
-        if (userChoiceMotor >= 1 && userChoiceMotor <= 3) {
-            motorcycles[userChoiceMotor - 1].start();
-        } else {
-            System.out.println("Invalid choice. ");
-        }
+                if (userChoiceMotor >= 1 && userChoiceMotor <= 3) {
+                    motorcycles[userChoiceMotor - 1].start();
+                    validInput = true;
+                } else {
+                    System.out.println("Invalid choice. Please select a number between a number between 1 and 3: ");
+                }
+            } catch (InputMismatchException e) {
+                System.out.print("Invalid input. Please select a number between a number between 1 and 3: ");
+                scnr.next();  // Clear the invalid input from the scanner buffer
+            }
+        } validInput = false;
 
         // Third is which car to STOP
         for (int i = 0; i < cars.length; i++) {
             System.out.println("Car " + "[" + (i+1) + "]");
         }
         System.out.print("Select which car you'd like to stop (1 - 3): ");
-        int userStopChoice = scnr.nextInt();
+        while(!validInput) {
+            try {
+                int userStopChoice = scnr.nextInt();
 
-        if (userStopChoice >= 1 && userStopChoice <= 3) {
-            cars[userStopChoice - 1].stop();
-        }
-
+                if (userStopChoice >= 1 && userStopChoice <= 3) {
+                    cars[userStopChoice - 1].stop();
+                    validInput = true;
+                } else {
+                    System.out.println("Invalid choice. Please select a number between a number between 1 and 3: ");
+                }
+            } catch (InputMismatchException e) {
+                System.out.print("Invalid input. Please select a number between a number between 1 and 3: ");
+                scnr.next();  // Clear the invalid input from the scanner buffer
+            }
+        } validInput = false;
         // last is which motorcycle to stop
 
         for (int i = 0; i < motorcycles.length; i++) {
             System.out.println("Motorcycle " + "[" + (i+1) + "]");
         }
         System.out.print("Select which motorcycle you'd like to stop (1 - 3): ");
-        int userStopMotor = scnr.nextInt();
+        while(!validInput) {
+            try {
+                int userStopMotor = scnr.nextInt();
 
-        if (userStopMotor >= 1 && userStopMotor <= 3) {
-            motorcycles[userStopMotor - 1].stop();
-        }
+                if (userStopMotor >= 1 && userStopMotor <= 3) {
+                    motorcycles[userStopMotor - 1].stop();
+                    validInput = true;
+                } else {
+                    System.out.print("Invalid choice. Please select a number between a number between 1 and 3: ");
+
+                }
+            } catch (InputMismatchException e) {
+                System.out.print("Invalid input. Please select a number between a number between 1 and 3: ");
+                scnr.next();  // Clear the invalid input from the scanner buffer
+            }
+        } validInput = false;
 
         // Display all vehicles status on whether they're running or not.
         for (int i = 0; i < 3; i++) {System.out.println("Car " + (i + 1) + " running = " + cars[i].getRunning());}
